@@ -14,8 +14,8 @@ export const postUser = async (req: Request, res: Response, next: NextFunction) 
 
         const {name, email, phone, password} = body;
 
-        if (!req.body.name || !req.body.email || !req.body.phone || !req.body.password) {
-            throw new Error("All fields are mandatory");
+        if (!name || !email || !phone || !password) {
+            return res.status(401).json({message: "All fields are mandatory"});
         }
 
         const user = await User.findOne({where: {email: email}})

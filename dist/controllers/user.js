@@ -20,8 +20,8 @@ const postUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     try {
         const body = req.body;
         const { name, email, phone, password } = body;
-        if (!req.body.name || !req.body.email || !req.body.phone || !req.body.password) {
-            throw new Error("All fields are mandatory");
+        if (!name || !email || !phone || !password) {
+            return res.status(401).json({ message: "All fields are mandatory" });
         }
         const user = yield user_1.default.findOne({ where: { email: email } });
         if (user) {

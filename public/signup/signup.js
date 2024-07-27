@@ -16,13 +16,14 @@ function handleSignup(event){
         phone: formData.phone.value,
         password: formData.password.value,
     }
+    const message = document.getElementById('message');
 
-    axios.post('http://localhost:3000/signup', signUpData)
+    axios.post('http://localhost:3000/user/signup', signUpData)
         .then(response => {
-            console.log(response);
+            message.innerHTML = response.data.message;
         })
         .catch(err => {
-            console.log(err);
+            message.innerHTML = err.response.data.message;
         })
 };
 

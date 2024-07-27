@@ -9,8 +9,12 @@ import userRoutes from './routes/user';
 const app = express();
 app.use(bodyParser.json());
 
-
-app.use(cors());
+const corsOptions = {
+    origin: 'http://127.0.0.1:5500',
+    credentials: true,
+    methods: 'GET,PUT,POST,DELETE'
+};
+app.use(cors(corsOptions));
 
 app.use('/user', userRoutes);
 
