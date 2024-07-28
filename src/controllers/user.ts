@@ -1,6 +1,10 @@
 import { Request, Response, NextFunction, response } from 'express';
 import User from '../models/user';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 
 const saltRounds = 10;
@@ -43,6 +47,12 @@ export const postUser = async (req: Request, res: Response, next: NextFunction) 
 };
 
 
+function generateToken(id: number) {
+    return jwt.sign({userId: id}, process.env.USER_TOKEN as string);
+}
+
+
+
 export const postLogin = async(req: Request, res: Response, next: NextFunction) => {
     try {
         const body = req.body as RequestBody;
@@ -59,12 +69,12 @@ export const postLogin = async(req: Request, res: Response, next: NextFunction) 
             return res.status(404).json({message: "User not found"})
         };
 
-        bcrypt.compare(password, user.password, async (err, result) => {
+        await bcrypt.compare(password, user.password, async (err, result) => {
             
             if(!result) {
-                return res.status(404).json({message: "User and password do not match"})
+                return res.status(404).json({message: "User not authorized"})
             }
-            return res.status(201).json({message: "Logged in Successfully"});
+            return res.status(201).json({message: "Logged in Successfully", token: generateToken(user.id)});
         })
     } catch (error) {
         console.error('Error adding user:', error);

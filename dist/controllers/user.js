@@ -15,6 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.postLogin = exports.postUser = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const saltRounds = 10;
 const postUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -45,6 +48,9 @@ const postUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.postUser = postUser;
+function generateToken(id) {
+    return jsonwebtoken_1.default.sign({ userId: id }, process.env.USER_TOKEN);
+}
 const postLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const body = req.body;
@@ -56,17 +62,17 @@ const postLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-        ;
-        bcrypt_1.default.compare(password, user.password, (err, result) => __awaiter(void 0, void 0, void 0, function* () {
-            if (!result) {
-                return res.status(404).json({ message: "User and password do not match" });
-            }
-            return res.status(201).json({ message: "Logged in Successfully" });
-        }));
+        const isPasswordValid = yield bcrypt_1.default.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(404).json({ message: "User not authorized" });
+        }
+        const token = generateToken(user.id);
+        console.log({ message: "Logged in Successfully", token: token }); // Log the response
+        return res.status(201).json({ message: "Logged in Successfully", token: token });
     }
     catch (error) {
-        console.error('Error adding user:', error);
-        res.status(500).json({ message: 'Failed to add User' });
+        console.error('Error logging in user:', error);
+        res.status(500).json({ message: 'Failed to log in User' });
     }
 });
 exports.postLogin = postLogin;

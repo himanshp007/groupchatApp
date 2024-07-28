@@ -26,6 +26,7 @@ function handlelogin(event){
     axios.post('http://localhost:3000/user/login', loginData)
         .then(response => {
             message.innerHTML = response.data.message;
+            console.log(response)
         })
         .catch(err => {
             message.innerHTML = err.response.data.message;
