@@ -41,3 +41,33 @@ export const postUser = async (req: Request, res: Response, next: NextFunction) 
         res.status(500).json({ message: 'Failed to add User' });
     }
 };
+
+
+export const postLogin = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+        const body = req.body as RequestBody;
+
+        const {email, password} = body;
+
+        if (!email || !password) {
+            return res.status(401).json({message: "All fields are mandatory"});
+        }
+
+        const user = await User.findOne({where: {email: email}})
+
+        if (!user) {
+            return res.status(404).json({message: "User not found"})
+        };
+
+        bcrypt.compare(password, user.password, async (err, result) => {
+            
+            if(!result) {
+                return res.status(404).json({message: "User and password do not match"})
+            }
+            return res.status(201).json({message: "Logged in Successfully"});
+        })
+    } catch (error) {
+        console.error('Error adding user:', error);
+        res.status(500).json({ message: 'Failed to add User' });
+    }
+};

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postUser = void 0;
+exports.postLogin = exports.postUser = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const saltRounds = 10;
@@ -45,3 +45,28 @@ const postUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.postUser = postUser;
+const postLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const body = req.body;
+        const { email, password } = body;
+        if (!email || !password) {
+            return res.status(401).json({ message: "All fields are mandatory" });
+        }
+        const user = yield user_1.default.findOne({ where: { email: email } });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        ;
+        bcrypt_1.default.compare(password, user.password, (err, result) => __awaiter(void 0, void 0, void 0, function* () {
+            if (!result) {
+                return res.status(404).json({ message: "User and password do not match" });
+            }
+            return res.status(201).json({ message: "Logged in Successfully" });
+        }));
+    }
+    catch (error) {
+        console.error('Error adding user:', error);
+        res.status(500).json({ message: 'Failed to add User' });
+    }
+});
+exports.postLogin = postLogin;

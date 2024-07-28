@@ -4,6 +4,11 @@ window.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         handleSignup(event);
     })
+
+    const login = document.getElementById('log');
+    login.addEventListener('click', (event) => {
+        redirectToLogin();
+    });
 });
 
 
@@ -27,3 +32,6 @@ function handleSignup(event){
         })
 };
 
+function redirectToLogin() {
+    window.location.href = '.././login/login.html';
+}

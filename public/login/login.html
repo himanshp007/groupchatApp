@@ -3,28 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Log In</title>
     <link rel="stylesheet" href="../static/styles.css">
 </head>
 <body>
     <main class="formBody">
-        <form id="signupForm">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name">
+        <form id="loginForm">
             <label for="email">Email</label>
             <input type="email" id="email" name="email">
-            <label for="phone">Phone</label>
-            <input type="phone" id="phone" name="phone">
             <label for="password">Password</label>
             <input type="password" id="password" name="password">
-            <input class="button" type="submit" value="Sign Up">
+            <input class='button' type="submit" value="Log In">
         </form>
-        <input id='log' class="button" type="button" value="Log In">
+        <input id="sign" class='button' type="button" value="Sign Up">
         <div id="messageDiv">
             <p id="message"></p>
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="signup.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>

@@ -9,7 +9,7 @@ body {
     height: 100vh;
 }
 
-.signupBody {
+.formBody {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -38,7 +38,7 @@ input[type="password"] {
     font-size: 16px;
 }
 
-input[type="submit"] {
+/* input[type="submit"] {
     width: 100%;
     padding: 10px;
     border: none;
@@ -51,4 +51,27 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #4cae4c;
+} */
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-bottom: 2px;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+    background-color: #3e8e41;
+    transform: translateY(4px);
 }
