@@ -1,3 +1,19 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #0056b3;
+    --background-color: #f1f1f1;
+    --text-color: #333;
+}
+
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
 .login_form_container {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -50,24 +66,18 @@ input[type="password"] {
     text-decoration: none;
     outline: none;
     color: #fff;
-    background-color: #4CAF50;
+    background-color: var(--primary-color);
     border: none;
     border-radius: 4px;
 }
 
-.button:hover {background-color: #3e8e41}
+.button:hover {background-color: var(--secondary-color)}
 
 .button:active {
-    background-color: #3e8e41;
+    background-color: var(--secondary-color);
     transform: translateY(4px);
 }
 
-/* Ensure the html and body take up the full height */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
 
 /* Container for the entire chat page */
 .chatpage_container {
@@ -103,28 +113,30 @@ html, body {
 }
 
 /* Form styles */
-form {
+.messageForm {
     display: flex;
     padding: 10px;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #ddc;
     background-color: #fff;
     align-items: center;
     width: 100%;
 }
 
 /* Input inside the form */
-form input[type="text"] {
+.messageForm input[type="text"] {
     flex-grow: 1;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 4px;
 }
 
+
 /* Button inside the form */
-form button {
+.messageForm button {
     padding: 10px 20px;
     margin-left: 10px;
+    margin-bottom: 3%;
     background-color: #007bff;
     color: white;
     border: none;
@@ -132,14 +144,24 @@ form button {
     cursor: pointer;
 }
 
-form button:hover {
+.messageForm button:hover {
     background-color: #0056b3;
 }
 
+.messageul{
+    list-style: none;
+    padding: 0%;
+    margin: 0%;
+}
+
 #mymessage{
+    padding: 2%;
+    border-radius: 5px;
     background-color: white;
 }
 
 #othermessage {
-    background-color: #ccc;
+    padding: 2%;
+    border-radius: 5px;
+    background-color: #f1f1f1;
 }
