@@ -1,4 +1,4 @@
-body {
+.login_form_container {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
@@ -38,20 +38,6 @@ input[type="password"] {
     font-size: 16px;
 }
 
-/* input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #5cb85c;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-input[type="submit"]:hover {
-    background-color: #4cae4c;
-} */
 
 .button {
     display: inline-block;
@@ -74,4 +60,86 @@ input[type="submit"]:hover {
 .button:active {
     background-color: #3e8e41;
     transform: translateY(4px);
+}
+
+/* Ensure the html and body take up the full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for the entire chat page */
+.chatpage_container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Chatpage should take full height and use flexbox */
+.chatpage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Chatbox styles */
+.chatbox {
+    padding: 20px;
+    border-top: 1px solid #ccc;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+/* Align heading perfectly */
+.chatbox h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form styles */
+form {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    background-color: #fff;
+    align-items: center;
+    width: 100%;
+}
+
+/* Input inside the form */
+form input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Button inside the form */
+form button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+#mymessage{
+    background-color: white;
+}
+
+#othermessage {
+    background-color: #ccc;
 }
