@@ -62,17 +62,17 @@ const postLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-        const isPasswordValid = yield bcrypt_1.default.compare(password, user.password);
-        if (!isPasswordValid) {
-            return res.status(404).json({ message: "User not authorized" });
-        }
-        const token = generateToken(user.id);
-        console.log({ message: "Logged in Successfully", token: token }); // Log the response
-        return res.status(201).json({ message: "Logged in Successfully", token: token });
+        ;
+        yield bcrypt_1.default.compare(password, user.password, (err, result) => __awaiter(void 0, void 0, void 0, function* () {
+            if (!result) {
+                return res.status(404).json({ message: "User not authorized" });
+            }
+            return res.status(201).json({ message: "Logged in Successfully", token: generateToken(user.id) });
+        }));
     }
     catch (error) {
-        console.error('Error logging in user:', error);
-        res.status(500).json({ message: 'Failed to log in User' });
+        console.error('Error adding user:', error);
+        res.status(500).json({ message: 'Failed to add User' });
     }
 });
 exports.postLogin = postLogin;

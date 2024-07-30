@@ -4,6 +4,9 @@ import cors from 'cors';
 
 import sequelize from "./utils/database";
 import userRoutes from './routes/user';
+import chatRoutes from './routes/chatapp';
+import User from './models/user';
+import Chats from './models/chatapp';
 
 
 const app = express();
@@ -17,7 +20,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use('/user', userRoutes);
+app.use('/chat', chatRoutes);
 
+
+User.hasMany(Chats);
+Chats.belongsTo(User);
 
 sequelize.sync()
     .then(() => {

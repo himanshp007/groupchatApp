@@ -25,7 +25,9 @@ function handlelogin(event){
 
     axios.post('http://localhost:3000/user/login', loginData)
         .then(response => {
+            localStorage.setItem('token', response.data.token);
             message.innerHTML = response.data.message;
+            window.location.href = '.././chat-group/chat.html';
             console.log(response)
         })
         .catch(err => {
