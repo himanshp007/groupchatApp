@@ -26,7 +26,7 @@ app.use('/chat', chatRoutes);
 User.hasMany(Chats);
 Chats.belongsTo(User);
 
-sequelize.sync()
+sequelize.sync({})
     .then(() => {
         console.log("Database sync successful");
         app.listen(3000, () => {

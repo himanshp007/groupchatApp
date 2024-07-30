@@ -39,3 +39,8 @@ function redirectToSignup() {
 
     window.location.href = '.././signup/signup.html';
 }
+
+function clearform() {
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+}

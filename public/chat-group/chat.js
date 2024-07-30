@@ -4,7 +4,7 @@ window.addEventListener('DOMContentLoaded', (event)=> {
 
     axios.get("http://localhost:3000/chat/getchats", {headers: {'Authorization': token}})
     .then((response)=> {
-        displayChats(response);
+        displayChats();
     })
     .catch(err => {
         console.log(err)
@@ -18,21 +18,33 @@ window.addEventListener('DOMContentLoaded', (event)=> {
 });
 
 
-function displayChats(res) {
+function displayChats() {
 
-    const data = res.data.chats;
-    console.log(data)
+    const token = localStorage.getItem('token');
 
-    const ul = document.getElementsByClassName('messageul')[0];
+    axios.get("http://localhost:3000/chat/getchats", {headers: {'Authorization': token}})
+    .then((response)=> {
+        const data = response.data.chats;
+        console.log(data)
 
-    data.forEach(chat => {
-        const li = document.createElement('li');
-        li.id = "mymessage";
-        li.innerHTML = chat.chat;
-        ul.appendChild(li);
-    });
+        const ul = document.getElementsByClassName('messageul')[0];
+        ul.innerHTML = "";
 
-    
+        for (let i = 0; i < data.length; i++){
+            
+            const li = document.createElement('li');
+            if(i%2 === 0) {
+                li.id = "mymessage";
+            } else {
+                li.id = "othermessage";
+            }
+            li.innerHTML = data[i].chat;
+            ul.appendChild(li);
+        }
+    })
+    .catch(err => {
+        console.log(err)
+    })    
 }
 
 
@@ -47,9 +59,14 @@ function handlePostChat(event) {
 
     axios.post("http://localhost:3000/chat/sendchats", messages, {headers: {'Authorization': token}})
     .then((response)=> {
-        displayChats(response);
+        displayChats();
+        clearform();
     })
     .catch(err => {
         console.log(err)
     })
+}
+
+function clearform() {
+    document.getElementById("sendchat").value = "";
 }

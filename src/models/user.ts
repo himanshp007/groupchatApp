@@ -24,8 +24,9 @@ const User = sequel.define('user',{
     },
     password: DataTypes.STRING,
 
-})
-
+}, {
+    tableName: 'users'
+});
 
 
 export default User;

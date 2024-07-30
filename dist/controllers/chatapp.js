@@ -25,7 +25,6 @@ const sendChat = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         }
         const userId = req.user.id;
         yield chatapp_1.default.create({
-            id: userId,
             chat: body.chat,
             userId: req.user.id
         });

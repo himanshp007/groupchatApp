@@ -24,7 +24,6 @@ export const sendChat = async (req: AuthenticatedRequest, res: Response, next: N
         const userId = req.user.id;
 
         await Chats.create({
-            id: userId,
             chat: body.chat,
             userId: req.user.id
         });

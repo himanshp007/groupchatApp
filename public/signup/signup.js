@@ -26,6 +26,7 @@ function handleSignup(event){
     axios.post('http://localhost:3000/user/signup', signUpData)
         .then(response => {
             message.innerHTML = response.data.message;
+            window.location.href = '.././login/login.html';
         })
         .catch(err => {
             message.innerHTML = err.response.data.message;
@@ -34,4 +35,11 @@ function handleSignup(event){
 
 function redirectToLogin() {
     window.location.href = '.././login/login.html';
+}
+
+function clearform() {
+    document.getElementById("email").value = "";
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("password").value = "";
 }

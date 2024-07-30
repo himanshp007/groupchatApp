@@ -23,7 +23,7 @@ app.use('/user', user_1.default);
 app.use('/chat', chatapp_1.default);
 user_2.default.hasMany(chatapp_2.default);
 chatapp_2.default.belongsTo(user_2.default);
-database_1.default.sync()
+database_1.default.sync({})
     .then(() => {
     console.log("Database sync successful");
     app.listen(3000, () => {
