@@ -42,7 +42,8 @@ export const showChat = async (req: AuthenticatedRequest, res: Response, next: N
 
         const userId = req.user.id;
 
-        const chats = await Chats.findAll({ where: { userId: userId } });
+        const chats = await Chats.findAll();
+        // { where: { userId: userId } }
         console.log(chats)
 
         return res.status(200).json({ message: 'Chat loaded successfully', chats: chats });

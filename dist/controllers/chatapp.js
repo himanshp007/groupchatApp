@@ -41,7 +41,8 @@ const showChat = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
             return res.status(401).json({ message: 'User not authenticated' });
         }
         const userId = req.user.id;
-        const chats = yield chatapp_1.default.findAll({ where: { userId: userId } });
+        const chats = yield chatapp_1.default.findAll();
+        // { where: { userId: userId } }
         console.log(chats);
         return res.status(200).json({ message: 'Chat loaded successfully', chats: chats });
     }

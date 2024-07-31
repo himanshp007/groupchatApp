@@ -15,6 +15,8 @@ window.addEventListener('DOMContentLoaded', (event)=> {
         event.preventDefault();
         handlePostChat(event);
     })
+
+    setInterval(displayChats, 1000);
 });
 
 
@@ -25,7 +27,6 @@ function displayChats() {
     axios.get("http://localhost:3000/chat/getchats", {headers: {'Authorization': token}})
     .then((response)=> {
         const data = response.data.chats;
-        console.log(data)
 
         const ul = document.getElementsByClassName('messageul')[0];
         ul.innerHTML = "";

@@ -25,5 +25,7 @@ const User = database_1.default.define('user', {
         unique: true,
     },
     password: sequelize_1.DataTypes.STRING,
+}, {
+    tableName: 'users'
 });
 exports.default = User;
