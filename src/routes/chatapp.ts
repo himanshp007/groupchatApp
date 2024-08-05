@@ -6,7 +6,7 @@ import { sendChat, showChat } from "../controllers/chatapp";
 
 const router = Router();
 
-router.get('/getchats', authenticate, showChat);
+router.get('/getchats/:chatId', authenticate, showChat);
 router.post('/sendchats', authenticate, sendChat);
 
 export default router;

@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.showChat = exports.sendChat = void 0;
 const chatapp_1 = __importDefault(require("../models/chatapp"));
+const sequelize_1 = require("sequelize");
 const sendChat = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const body = req.body;
@@ -37,14 +38,21 @@ const sendChat = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
 exports.sendChat = sendChat;
 const showChat = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const chatId = +req.params.chatId;
+        console.log(chatId);
         if (!req.user) {
             return res.status(401).json({ message: 'User not authenticated' });
         }
-        const userId = req.user.id;
-        const chats = yield chatapp_1.default.findAll();
-        // { where: { userId: userId } }
+        const chats = yield chatapp_1.default.findAll({
+            where: {
+                id: {
+                    [sequelize_1.Op.gt]: chatId
+                }
+            }
+        });
+        const count = chats.length;
         console.log(chats);
-        return res.status(200).json({ message: 'Chat loaded successfully', chats: chats });
+        return res.status(200).json({ message: 'Chat loaded successfully', chats: chats, count: count });
     }
     catch (err) {
         return res.status(500).json({ message: "Something went wrong" });

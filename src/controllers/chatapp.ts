@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import Chats from "../models/chatapp";
+import { Sequelize, Op } from 'sequelize';
+
 
 interface AuthenticatedRequest extends Request {
     user?: {
@@ -36,17 +38,26 @@ export const sendChat = async (req: AuthenticatedRequest, res: Response, next: N
 
 export const showChat = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     try {
+
+        const chatId = +req.params.chatId;
+
+        console.log(chatId)
+
         if (!req.user) {
             return res.status(401).json({ message: 'User not authenticated' });
         }
 
-        const userId = req.user.id;
-
-        const chats = await Chats.findAll();
-        // { where: { userId: userId } }
+        const chats = await Chats.findAll({
+            where: {
+                id: {
+                    [Op.gt]: chatId
+                }
+            }
+        });
+        const count = chats.length;
         console.log(chats)
 
-        return res.status(200).json({ message: 'Chat loaded successfully', chats: chats });
+        return res.status(200).json({ message: 'Chat loaded successfully', chats: chats, count: count });
     } catch (err) {
         return res.status(500).json({ message: "Something went wrong" });
     }
